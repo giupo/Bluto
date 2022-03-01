@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from termcolor import colored
-import pythonwhois
+
+import whois
 import traceback
 import requests
 import datetime

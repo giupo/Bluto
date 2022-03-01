@@ -6,7 +6,7 @@ setup(
     author='Darryl lane',
     author_email='DarrylLane101@gmail.com',
     url='https://github.com/darryllane/Bluto',
-    packages=['Bluto'],
+    packages=['bluto'],
     include_package_data=True,
     license='LICENSE.txt',
     description='''

@@ -14,10 +14,10 @@ docopt = "^0.6.2"
 dnspython = "^2.2.0"
 termcolor = "^1.1.0"
 requests = {extras = ["security"], version = "^2.27.1"}
-pythonwhois = "^2.4.3"
 lxml = "^4.8.0"
 oletools = "^0.60"
 pdfminer = "^20191125"
+python-whois = "^0.7.3"
 
 [tool.poetry.dev-dependencies]
 

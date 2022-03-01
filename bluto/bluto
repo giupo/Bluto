@@ -32,9 +32,9 @@ import os
 
 SITES = site.getsitepackages()
 for item in SITES:
-    if os.path.exists(item + "/Bluto/modules/__init__.py"):
+    if os.path.exists(item + "/bluto/modules/__init__.py"):
         path = item
-        sys.path.append(path + '/Bluto/')
+        sys.path.append(path + '/bluto/')
 
 import time
 import threading
@@ -43,22 +43,51 @@ import argparse
 import dns.resolver
 import dns.query
 import dns.zone
+
 from docopt import docopt
 from termcolor import colored
-from modules.get_dns import action_brute_start, action_wild_cards, action_zone_transfer, get_dns_details, action_brute_wild, set_resolver
-from modules.search import action_bing_true, action_google, action_linkedin, action_netcraft, action_emailHunter
-from modules.get_file import get_subs, get_sub_interest, get_line_count, get_user_agents
-from modules.general import action_country_id, action_whois, action_bluto_use, check_dom
-from modules.output import action_output_vuln_zone, action_output_wild_false, action_output_wild_false_hunter, action_output_vuln_zone_hunter
-from modules.data_mine import doc_start
-from modules.bluto_logging import info
-from modules.update import update, updateCheck
 
-FILENAME_1 = path + "/Bluto/doc/subdomains-top1mil-20000.txt"
-FILENAME_2 = path + "/Bluto/doc/sub_interest.txt"
-USERAGENT_F = path + "/Bluto/doc/user_agents.txt"
-COUNTRIES_FILE = path + "/Bluto/doc/countries.txt"
-INFO_LOG_FILE = os.path.expanduser('~/Bluto/log/bluto-info.log')
+from bluto.modules.get_dns import (
+    action_brute_start,
+    action_wild_cards,
+    action_zone_transfer,
+    get_dns_details,
+    action_brute_wild,
+    set_resolver)
+
+from bluto.modules.search import (
+    action_bing_true,
+    action_google,
+    action_linkedin,
+    action_netcraft,
+    action_emailHunter)
+
+from bluto.modules.get_file import (
+    get_subs,
+    get_sub_interest,
+    get_line_count,
+    get_user_agents)
+
+from bluto.modules.general import (
+    action_country_id,
+    action_whois,
+    action_bluto_use, check_dom)
+
+from bluto.modules.output import (
+    action_output_vuln_zone,
+    action_output_wild_false,
+    action_output_wild_false_hunter,
+    action_output_vuln_zone_hunter)
+
+from bluto.modules.data_mine import doc_start
+from bluto.modules.bluto_logging import info
+from bluto.modules.update import update, updateCheck
+
+FILENAME_1 = path + "/bluto/doc/subdomains-top1mil-20000.txt"
+FILENAME_2 = path + "/bluto/doc/sub_interest.txt"
+USERAGENT_F = path + "/bluto/doc/user_agents.txt"
+COUNTRIES_FILE = path + "/bluto/doc/countries.txt"
+INFO_LOG_FILE = os.path.expanduser('~/bluto/log/bluto-info.log')
 
 version = '2.4.17'
 
@@ -87,7 +116,20 @@ desc = """  {2} | {3} | {4} | {9}
 
                  {0}  |  {1}
                      {5}
-""" . format (colored("Author: Darryl Lane", 'blue'), colored("Twitter: @darryllane101", 'blue'), colored("DNS Recon", 'green'), colored("SubDomain Brute Forcer", 'green'), colored("DNS Zone Transfers", 'green'), colored("https://github.com/darryllane/Bluto", 'green'), colored("v" + version, 'red'), colored("Email Enumeration", 'green'), colored("Staff Enumeration", 'green'), colored("DNS Wild Card Checks", 'green'), colored("DNS Wild Card Brute Forcer", 'green'), colored("Compromised Account Enumeration", 'green'), colored("MetaData Mining", 'green'))
+""".format(
+    colored("Author: Darryl Lane", 'blue'),
+    colored("Twitter: @darryllane101", 'blue'),
+    colored("DNS Recon", 'green'),
+    colored("SubDomain Brute Forcer", 'green'),
+    colored("DNS Zone Transfers", 'green'),
+    colored("https://github.com/darryllane/Bluto", 'green'),
+    colored("v" + version, 'red'),
+    colored("Email Enumeration", 'green'),
+    colored("Staff Enumeration", 'green'),
+    colored("DNS Wild Card Checks", 'green'),
+    colored("DNS Wild Card Brute Forcer", 'green'),
+    colored("Compromised Account Enumeration", 'green'),
+    colored("MetaData Mining", 'green'))
 
 prox = False
 
