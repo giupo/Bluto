@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "bluto"
+version = "2.4.17"
+description = ""
+authors = ["Your Name <you@example.com>"]
+license = "GPL"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+beautifulsoup4 = "^4.10.0"
+docopt = "^0.6.2"
+dnspython = "^2.2.0"
+termcolor = "^1.1.0"
+requests = {extras = ["security"], version = "^2.27.1"}
+pythonwhois = "^2.4.3"
+lxml = "^4.8.0"
+oletools = "^0.60"
+pdfminer = "^20191125"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

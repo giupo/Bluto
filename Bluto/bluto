@@ -38,7 +38,7 @@ for item in SITES:
 
 import time
 import threading
-import Queue
+import queue
 import argparse
 import dns.resolver
 import dns.query
@@ -94,8 +94,8 @@ prox = False
 if __name__ == "__main__":
     info('\nBluto Started')
     args = docopt(__doc__, version=version)
-    print title
-    print desc
+    print(title)
+    print(desc)
 #Check Arguments
     try:
 
@@ -125,7 +125,7 @@ if __name__ == "__main__":
         if args['--domain']:
             domain = args['--domain']
         else:
-            domain = raw_input("Target Domain: ")
+            domain = input("Target Domain: ")
 
         user_agents = get_user_agents(USERAGENT_F)
         info('Domain Identified: ' + str(domain))
@@ -143,40 +143,40 @@ if __name__ == "__main__":
 #ZoneTrans Call
         vulnerable_results = action_zone_transfer(zn_list, domain)
         if vulnerable_results == ([], []):
-            print "\nNone of the Name Servers are vulnerable to Zone Transfers"
+            print("\nNone of the Name Servers are vulnerable to Zone Transfers")
 #Testing For Wild Cards
-            print '\nTesting For Wild Cards'
+            print('\nTesting For Wild Cards')
             value = action_wild_cards(domain, myResolver)
 #Wild Cards True
             if value == True:
-                print colored('\n\tWild Cards Are In Place', 'green')
-                print colored("\n\tOh no! You ain't eatin' no spinach in this picture", 'blue')
-                print colored("\n\nThis Will Take A While Longer, On Average +- 20min", 'grey')
+                print(colored('\n\tWild Cards Are In Place', 'green'))
+                print(colored("\n\tOh no! You ain't eatin' no spinach in this picture", 'blue'))
+                print(colored("\n\nThis Will Take A While Longer, On Average +- 20min", 'grey'))
                 check_count = get_line_count(FILENAME_1)
             #Grabbing Subs
                 subs = get_subs(FILENAME_1, domain)
-                print '\nGathering Data From Google, Bing And LinkedIn'
+                print('\nGathering Data From Google, Bing And LinkedIn')
             #Checking Request Country
                 userCountry, userServer = action_country_id(COUNTRIES_FILE, prox)
                 action_bluto_use(userCountry)
                 start_time_total = time.time()
             #Executing Jobs
-                q1 = Queue.Queue()
-                q2 = Queue.Queue()
-                q3 = Queue.Queue()
-                q5 = Queue.Queue()
+                q1 = queue.Queue()
+                q2 = queue.Queue()
+                q3 = queue.Queue()
+                q5 = queue.Queue()
                 t1 = threading.Thread(target=action_google, args=(domain, userCountry, userServer, q1, user_agents, prox))
                 t2 = threading.Thread(target=action_bing_true, args=(domain, q2, user_agents, prox))
                 t3 = threading.Thread(target=action_linkedin, args=(domain, userCountry, q3, company, user_agents, prox))
                 t5 = threading.Thread(target=doc_start, args=(domain, user_agents, prox, q5))
                 start_time_email = time.time()
                 if api:
-                    q4 = Queue.Queue()
+                    q4 = queue.Queue()
                     t4 = threading.Thread(target=action_emailHunter, args=(domain, api, user_agents, q4, prox)) #Takes domain[str], api[list], user_agents[list] #Returns email,url [list[tuples]] Queue[object], prox[str]
                     t4.start()
                     t4.join()
                 else:
-                    print colored('\nDon\'t forget you can increase your identified email count significantly with a free Hunter API key.\nhttps://hunter.io/api_keys', 'green')
+                    print(colored('\nDon\'t forget you can increase your identified email count significantly with a free Hunter API key.\nhttps://hunter.io/api_keys', 'green'))
                 t1.start()
                 t1.join()
                 t2.start()
@@ -211,32 +211,32 @@ if __name__ == "__main__":
                     action_output_wild_false(brute_results_dict, sub_intrest, google_true_results, bing_true_results, linkedin_results, check_count, domain, time_spent_email, time_spent_brute, time_spent_total, report_location, company, data_mine)
 #WildCards False
             else:
-                print colored('\n\tWild Cards Are Not In Place', 'red')
+                print(colored('\n\tWild Cards Are Not In Place', 'red'))
                 check_count = get_line_count(FILENAME_1)
             #Grabbing Subs
                 subs = get_subs(FILENAME_1, domain)
-                print '\nGathering Data From Google, Bing And LinkedIn'
+                print('\nGathering Data From Google, Bing And LinkedIn')
             #Checking Request Country
                 userCountry, userServer = action_country_id(COUNTRIES_FILE, prox)
                 action_bluto_use(userCountry)
                 start_time_total = time.time()
             #Executing Jobs
-                q1 = Queue.Queue()
-                q2 = Queue.Queue()
-                q3 = Queue.Queue()
-                q5 = Queue.Queue()
+                q1 = queue.Queue()
+                q2 = queue.Queue()
+                q3 = queue.Queue()
+                q5 = queue.Queue()
                 t1 = threading.Thread(target=action_google, args=(domain, userCountry, userServer, q1, user_agents, prox))
                 t2 = threading.Thread(target=action_bing_true, args=(domain, q2, user_agents, prox))
                 t3 = threading.Thread(target=action_linkedin, args=(domain, userCountry, q3, company, user_agents, prox))
                 t5 = threading.Thread(target=doc_start, args=(domain, user_agents, prox, q5))
                 start_time_email = time.time()
                 if api:
-                    q4 = Queue.Queue()
+                    q4 = queue.Queue()
                     t4 = threading.Thread(target=action_emailHunter, args=(domain, api, user_agents, q4, prox)) #Takes domain[str], api[list], user_agents[list] #Returns email,url [list[tuples]] Queue[object], prox[str]
                     t4.start()
                     t4.join()
                 else:
-                    print colored('\nDon\'t forget you can increase your identified email count significantly with a free Hunter API key.\nhttps://hunter.io/api_keys', 'green')
+                    print(colored('\nDon\'t forget you can increase your identified email count significantly with a free Hunter API key.\nhttps://hunter.io/api_keys', 'green'))
                 t1.start()
                 t1.join()
                 t2.start()
@@ -276,26 +276,26 @@ if __name__ == "__main__":
     #Vuln Zone Trans
             vulnerable_list = vulnerable_results[0]
             clean_dump = vulnerable_results[1]
-            print '\nGathering Data From Google, Bing And LinkedIn'
+            print('\nGathering Data From Google, Bing And LinkedIn')
             userCountry, userServer = action_country_id(COUNTRIES_FILE, prox)
             action_bluto_use(userCountry)
             start_time_total = time.time()
-            q1 = Queue.Queue()
-            q2 = Queue.Queue()
-            q3 = Queue.Queue()
-            q5 = Queue.Queue()
+            q1 = queue.Queue()
+            q2 = queue.Queue()
+            q3 = queue.Queue()
+            q5 = queue.Queue()
             t1 = threading.Thread(target=action_google, args=(domain, userCountry, userServer, q1, user_agents, prox))
             t2 = threading.Thread(target=action_bing_true, args=(domain, q2, user_agents, prox))
             t3 = threading.Thread(target=action_linkedin, args=(domain, userCountry, q3, company, user_agents, prox))
             t5 = threading.Thread(target=doc_start, args=(domain, user_agents, prox, q5))
             start_time_email = time.time()
             if api:
-                q4 = Queue.Queue()
+                q4 = queue.Queue()
                 t4 = threading.Thread(target=action_emailHunter, args=(domain, api, user_agents, q4, prox)) #Takes domain[str], api[list], user_agents[list] #Returns email,url [list[tuples]] Queue[object], prox[str]
                 t4.start()
                 t4.join()
             else:
-                print colored('\nDon\'t forget you can increase your identified email count significantly with a free Hunter API key.\nhttps://hunter.io/api_keys', 'green')
+                print(colored('\nDon\'t forget you can increase your identified email count significantly with a free Hunter API key.\nhttps://hunter.io/api_keys', 'green'))
             t1.start()
             t1.join()
             t2.start()
@@ -321,8 +321,8 @@ if __name__ == "__main__":
 
         info('Bluto Finished')
     except KeyboardInterrupt:
-        print '\n\nRage Quit!..'
+        print('\n\nRage Quit!..')
         info('Keyboard Interrupt From User\n')
         sys.exit()
-    except Exception,e:
-        print e
+    except Exception as e:
+        print(e)
