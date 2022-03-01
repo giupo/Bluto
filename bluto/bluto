@@ -30,11 +30,21 @@ import sys
 import site
 import os
 
-SITES = site.getsitepackages()
-for item in SITES:
-    if os.path.exists(item + "/bluto/modules/__init__.py"):
-        path = item
-        sys.path.append(path + '/bluto/')
+
+
+def get_module_path():
+    sites = site.getsitepackages()
+    sites.append(".")
+
+    for path in sites:
+        if os.path.exists(path + "/bluto/modules/__init__.py"):
+            return path
+
+    sys.exit(-1)
+
+path = get_module_path()
+sys.path.append(path + '/bluto/')
+
 
 import time
 import threading
@@ -82,6 +92,7 @@ from bluto.modules.output import (
 from bluto.modules.data_mine import doc_start
 from bluto.modules.bluto_logging import info
 from bluto.modules.update import update, updateCheck
+
 
 FILENAME_1 = path + "/bluto/doc/subdomains-top1mil-20000.txt"
 FILENAME_2 = path + "/bluto/doc/sub_interest.txt"

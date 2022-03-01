@@ -7,6 +7,9 @@ setup(
     author_email='DarrylLane101@gmail.com',
     url='https://github.com/darryllane/Bluto',
     packages=['bluto'],
+    package_data= {
+        "bluto": ["bluto/doc/*.txt"]
+    },
     include_package_data=True,
     license='LICENSE.txt',
     description='''

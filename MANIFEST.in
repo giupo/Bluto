@@ -1,5 +1,5 @@
 include *.txt
 include *.md
-recursive-include Bluto/doc *.txt
-recursive-include Bluto/modules *.py
+recursive-include bluto/doc *.txt
+recursive-include bluto/modules *.py
 recursive-exclude / *.DS_store
