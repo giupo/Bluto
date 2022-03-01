@@ -2,22 +2,22 @@
 # -*- coding: utf-8 -*-
 
 import dns.resolver
-import unicodedata
+
 import traceback
-import sys
+
 import re
 import requests
 import random
 import time
 import urllib.request, urllib.error, urllib.parse
-import json
+
 from termcolor import colored
 from bs4 import BeautifulSoup
 from .bluto_logging import info, INFO_LOG_FILE
 
 requests.packages.urllib3.disable_warnings()
 
-def action_google(domain, userCountry, userServer, q, user_agents, prox):
+def action_google(domain, userCountry, userServer, q, user_agents, has_proxy):
     info('Google Search Started')
     uas = user_agents
     searchfor = '@' + '"' + domain + '"'
@@ -27,10 +27,9 @@ def action_google(domain, userCountry, userServer, q, user_agents, prox):
     for start in range(1,10,1):
         ua = random.choice(uas)
         try:
-            if prox == True:
+            if has_proxy:
                 proxy = {'http' : 'http://127.0.0.1:8080'}
-            else:
-                pass
+
             headers = {"User-Agent" : ua,
                        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
                        'Accept-Language': 'en-US,en;q=0.5',
@@ -39,8 +38,13 @@ def action_google(domain, userCountry, userServer, q, user_agents, prox):
             payload = { 'nord':'1', 'q': searchfor, 'start': start*10}
 
             link = '{0}/search?num=200' .format(userServer)
-            if prox == True:
-                response = requests.get(link, headers=headers, params=payload, proxies=proxy, verify=False)
+            if has_proxy:
+                response = requests.get(
+                    link,
+                    headers=headers,
+                    params=payload,
+                    proxies=proxy,
+                    verify=False)
             else:
                 response = requests.get(link, headers=headers, params=payload, verify=False)
 
@@ -59,7 +63,7 @@ def action_google(domain, userCountry, userServer, q, user_agents, prox):
                     try:
                         if match:
                             if match is not '@' + domain:
-                                if match is not '@':
+                                if match != '@':
                                     url = div.find('cite').text
                                     email = str(match).replace("u'",'').replace('[','').replace(']','').replace("'",'')
                                     entries_tuples.append((email.lower(),str(url).replace("u'",'').replace("'","")))

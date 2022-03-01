@@ -1,50 +1,45 @@
+# -*- coding: utf-8 -*-
 
-from .bluto_logging import info
 import subprocess
 import re
-from termcolor import colored
 import sys
 
-def updateCheck(VERSION):
-	command_check = (["pip list -o"])
-	process_check = subprocess.Popen(command_check, shell=True, stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
-	output_check = process_check.communicate()[0]
-	line = output_check.splitlines()
-	for i in line:
-		if 'bluto' in str(i).lower():
-			new_version = re.match('Bluto\s\(.*\)\s\-\sLatest\:\s(.*?)\s\[sdist\]', i).group(1)
-			found = True
-		else:
-			found = False
+from termcolor import colored
+from bluto.modules.utils import yes_or_no
+from bluto.modules.bluto_logging import info
 
-	if found:
-		info('Update Availble')
-		print(colored('\nUpdate Available!', 'red'), colored('{}'.format(new_version), 'green'))
-		print(colored('Would you like to attempt to update?\n', 'green'))
-		while True:
-			answer = input('Y|N: ').lower()
-			if answer in ('y', 'yes'):
-				update()
-				print('\n')
-				break
-			elif answer in ('n', 'no'):
-				print('\n')
-				break
-			else:
-				print('\nThe Options Are yes|no Or Y|N, Not {}'.format(answer))
-	else:
-		print(colored('You are running the latest version:','green'), colored('{}\n'.format(VERSION),'blue'))
+def updateCheck(version):
+    command_check = (["pip list -o"])
+    process_check = subprocess.Popen(command_check, shell=True,
+                                     stdout=subprocess.PIPE,
+                                     stderr=subprocess.STDOUT)
+
+    output_check = process_check.communicate()[0]
+    for line in output_check.splitlines():
+        if 'bluto' in str(line).lower():
+            new_version = re.match("Bluto\s\(.*\)\s\-\sLatest\:\s(.*?)\s\[sdist\]", line).group(1)
+            info('Update Available')
+            print(colored('\nUpdate Available!', 'red'), colored('{}'.format(new_version), 'green'))
+            print(colored('Would you like to attempt to update?\n', 'green'))
+            if yes_or_no():
+                return update()
+
+    print(colored(f"You are running the latest version: {colored(version, 'blue')}\n", "green"))
 
 
 def update():
-	command_check = (["pip install bluto --upgrade"])
-	process_check = subprocess.Popen(command_check, shell=True, stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
-	output_check = process_check.communicate()[0]
-	lines = output_check.splitlines()
-	info(lines)
-	if 'Successfully installed' in lines[:-1]:
-		print(colored('\nUpdate Successfull!', 'green'))
-		sys.exit()
-	else:
-		print(colored('\nUpdate Failed, Please Check The Logs For Details', 'red'))
+    command_check = (["pip install bluto --upgrade"])
+    process_check = subprocess.Popen(command_check,
+                                     shell=True,
+                                     stdout=subprocess.PIPE,
+                                     stderr=subprocess.STDOUT)
 
+    output_check = process_check.communicate()[0]
+    lines = output_check.splitlines()
+    info(lines)
+    if "Successfully installed" in lines[:-1]:
+        print(colored('\nUpdate Successfull!', 'green'))
+        sys.exit(0)
+    else:
+        print(colored('\nUpdate Failed, Please Check The Logs For Details', 'red'))
+        sys.exit(1)

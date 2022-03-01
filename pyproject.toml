@@ -24,3 +24,23 @@ python-whois = "^0.7.3"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+
+[tool.pyright]
+include = ["bluto"]
+exclude = ["**/node_modules",
+    "**/__pycache__",
+    ".git",
+]
+
+# the following path is produced with "poetry env info --path"
+venvPath = "/home/kali/.cache/pypoetry/virtualenvs"
+venv = "bluto-nsOZVHcf-py3.9"
+
+# pyproject.toml
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = [
+    "tests"
+]
