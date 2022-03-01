@@ -12,6 +12,7 @@ COPY . .
 
 FROM builder
 
-RUN pip install -r requirements.txt && python setup.py install
+RUN pip install -r requirements.txt && \
+    pip install .
 
 CMD ["bluto"]

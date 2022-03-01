@@ -4,8 +4,13 @@ version = "2.4.21"
 description = """DNS Recon | Brute Forcer | DNS Zone Transfer | DNS Wild Card Checks
     DNS Wild Card Brute Forcer | Email Enumeration | Staff Enumeration
     Compromised Account Checking"""
-authors = ["Your Name <you@example.com>"]
+authors = ["Darryl Lane <DarrylLane101@gmail.com>"]
+
 license = "GPL"
+repository = "https://github.com/darryllane/Bluto"
+
+[tool.poetry.urls]
+"Issue Tracker" = "https://github.com/darryllane/Bluto/issues"
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -20,10 +25,15 @@ pdfminer = "^20191125"
 python-whois = "^0.7.3"
 
 [tool.poetry.dev-dependencies]
+pyright = "^1.1.225"
+importmagic = "^0.1.7"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+bluto = 'bluto.cli:main'
 
 
 [tool.pyright]
@@ -34,6 +44,8 @@ exclude = ["**/node_modules",
 ]
 
 # the following path is produced with "poetry env info --path"
+# this *must* be modified in order to make pyright work
+
 venvPath = "/home/kali/.cache/pypoetry/virtualenvs"
 venv = "bluto-nsOZVHcf-py3.9"
 

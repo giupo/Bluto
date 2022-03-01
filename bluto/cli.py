@@ -359,14 +359,15 @@ def main():
                 action_output_vuln_zone(google_results, bing_results, linkedin_results, time_spent_email, time_spent_total, clean_dump, sub_intrest, domain, report_location, company, data_mine)
 
         info('Bluto Finished')
+        return 0
     except KeyboardInterrupt:
         print('\n\nRage Quit!..')
         info('Keyboard Interrupt From User\n')
-        sys.exit()
+        return -1
     except Exception as e:
         print(e)
+        return -2 
 
 
 if __name__ == "__main__":
     main()
-
