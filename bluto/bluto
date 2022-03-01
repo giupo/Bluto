@@ -161,8 +161,8 @@ if __name__ == "__main__":
             myResolver = set_resolver(timeout_value)
         else:
             myResolver = dns.resolver.Resolver()
-            myResolver.timeout = 10
-            myResolver.lifetime = 10
+            myResolver.timeout = float(10)
+            myResolver.lifetime = float(10)
             myResolver.nameservers = ['8.8.8.8', '8.8.4.4']
 
         if args['-e']:

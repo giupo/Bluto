@@ -1,9 +1,9 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
 setup(
     name='bluto',
     version='2.4.20',
-    author='Darryl lane',
+    author='Darryl Lane',
     author_email='DarrylLane101@gmail.com',
     url='https://github.com/darryllane/Bluto',
     packages=['bluto'],
