@@ -86,7 +86,7 @@ USERAGENT_F = path + "/bluto/doc/user_agents.txt"
 COUNTRIES_FILE = path + "/bluto/doc/countries.txt"
 INFO_LOG_FILE = os.path.expanduser('~/bluto/log/bluto-info.log')
 
-version = '2.4.20'
+version = '2.4.21'
 
 title = """
  BBBBBBBBBBBBBBBBB  lllllll                       tttt
