@@ -76,16 +76,6 @@ from bluto.modules.bluto_logging import info
 from bluto.modules.update import updateCheck
 from bluto.modules.utils import get_module_path
 
-path = get_module_path()
-sys.path.append(path + '/bluto/')
-
-
-FILENAME_1 = path + "/bluto/doc/subdomains-top1mil-20000.txt"
-FILENAME_2 = path + "/bluto/doc/sub_interest.txt"
-USERAGENT_F = path + "/bluto/doc/user_agents.txt"
-COUNTRIES_FILE = path + "/bluto/doc/countries.txt"
-INFO_LOG_FILE = os.path.expanduser('~/bluto/log/bluto-info.log')
-
 version = '2.4.21'
 
 title = """
@@ -132,6 +122,14 @@ prox = False
 
 
 def main():
+    path = get_module_path()
+    sys.path.append(path + '/bluto/')
+    FILENAME_1 = path + "/bluto/doc/subdomains-top1mil-20000.txt"
+    FILENAME_2 = path + "/bluto/doc/sub_interest.txt"
+    USERAGENT_F = path + "/bluto/doc/user_agents.txt"
+    COUNTRIES_FILE = path + "/bluto/doc/countries.txt"
+    INFO_LOG_FILE = os.path.expanduser('~/bluto/log/bluto-info.log')
+
     info('\nBluto Started')
     args = docopt(__doc__, version=version)
     print(title)
