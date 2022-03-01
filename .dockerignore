@@ -1,4 +1,6 @@
 build
 dist
 bluto.egg-info
-.git
+\.git
+logs
+
