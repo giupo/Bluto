@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import os
+import sys
 import shutil
 import webbrowser
+import site
+
 
 def yes_or_no():
     """Helper function to handle user input for yes or no"""
@@ -40,3 +43,21 @@ def handle_local_data(docs, log_dir, report_location):
         print("removing local data...")
         remove_reports(docs, log_dir, report_location)
         print("done removing local data.")
+
+def get_module_path():
+    """
+    Returns the module path
+    """
+
+    # NOTE: maybe we should use pkg_resources
+
+    sites = site.getsitepackages()
+    # if we are developing...
+    sites.append(".")
+
+    for path in sites:
+        if os.path.exists(path + "/bluto/modules/__init__.py"):
+            return path
+
+    print("can't find module path, exiting...")
+    sys.exit(-1)

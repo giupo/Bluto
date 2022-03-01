@@ -27,25 +27,7 @@ Options:
 """
 
 import sys
-import site
 import os
-
-
-def get_module_path():
-    sites = site.getsitepackages()
-    # if we are developing...
-    sites.append(".")
-
-    for path in sites:
-        if os.path.exists(path + "/bluto/modules/__init__.py"):
-            return path
-
-    print("can't find module path, exiting...")
-    sys.exit(-1)
-
-path = get_module_path()
-sys.path.append(path + '/bluto/')
-
 
 import time
 import threading
@@ -92,6 +74,10 @@ from bluto.modules.output import (
 from bluto.modules.data_mine import doc_start
 from bluto.modules.bluto_logging import info
 from bluto.modules.update import updateCheck
+from bluto.modules.utils import get_module_path
+
+path = get_module_path()
+sys.path.append(path + '/bluto/')
 
 
 FILENAME_1 = path + "/bluto/doc/subdomains-top1mil-20000.txt"
@@ -144,12 +130,14 @@ desc = """  {2} | {3} | {4} | {9}
 
 prox = False
 
-if __name__ == "__main__":
+
+def main():
     info('\nBluto Started')
     args = docopt(__doc__, version=version)
     print(title)
     print(desc)
-#Check Arguments
+
+    # Check Arguments
     try:
 
         if args['-u']:
@@ -379,3 +367,8 @@ if __name__ == "__main__":
         sys.exit()
     except Exception as e:
         print(e)
+
+
+if __name__ == "__main__":
+    main()
+

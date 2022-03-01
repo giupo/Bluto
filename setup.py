@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='bluto',
@@ -6,7 +6,7 @@ setup(
     author='Darryl Lane',
     author_email='DarrylLane101@gmail.com',
     url='https://github.com/darryllane/Bluto',
-    packages=['bluto'],
+    packages=find_packages(include=["bluto", "bluto.*"]),
     package_data= {
         "bluto": ["bluto/doc/*.txt"]
     },
@@ -18,7 +18,6 @@ setup(
     Compromised Account Checking''',
     long_description_content_type='text/markdown',
     long_description=open('README.md').read(),
-    scripts=['bluto/bluto'],
     install_requires=[
     	"docopt",
         "dnspython",
@@ -31,5 +30,10 @@ setup(
         "pdfminer",
         "python-whois"
     ],
+    entry_points = {
+        'console_scripts': [
+            'bluto = bluto.cli:main'
+        ]
+    }
 )
 
