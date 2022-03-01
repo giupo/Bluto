@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='Bluto',
+    name='bluto',
     version='2.4.17',
     author='Darryl lane',
     author_email='DarrylLane101@gmail.com',
@@ -15,7 +15,7 @@ setup(
     Compromised Account Checking''',
     long_description_content_type='text/markdown',
     long_description=open('README.md').read(),
-    scripts=['Bluto/bluto'],
+    scripts=['bluto/bluto'],
     install_requires=[
     	"docopt",
         "dnspython",
@@ -25,7 +25,7 @@ setup(
         "pythonwhois",
         "lxml",
         "oletools",
-        "pdfminer==20140328"
+        "pdfminer"
     ],
 )
 
