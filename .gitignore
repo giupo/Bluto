@@ -4,3 +4,5 @@ build
 *.egg-info
 *.bak
 __pycache__
+node_modules
+
