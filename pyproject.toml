@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bluto"
-version = "2.4.19"
+version = "2.4.20"
 description = """DNS Recon | Brute Forcer | DNS Zone Transfer | DNS Wild Card Checks
     DNS Wild Card Brute Forcer | Email Enumeration | Staff Enumeration
     Compromised Account Checking"""
