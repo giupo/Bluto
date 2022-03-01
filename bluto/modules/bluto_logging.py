@@ -1,10 +1,11 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 import logging
 import sys
 import site
 import os
-LOG_DIR = os.path.expanduser('~/Bluto/log/')
+
+LOG_DIR = os.path.expanduser('~/bluto/log/')
 INFO_LOG_FILE = os.path.expanduser(LOG_DIR + 'bluto-info.log')
 
 if not os.path.exists(LOG_DIR):
@@ -21,9 +22,10 @@ fh2.setLevel(logging.INFO)
 fh2.setFormatter(formatter)
 
 # create Logger object
-mylogger = logging.getLogger('MyLogger')
+mylogger = logging.getLogger('bluto')
 mylogger.setLevel(logging.INFO)
 mylogger.addHandler(fh2)
 
 # create shortcut functions
 info = mylogger.info
+error = mylogger.error

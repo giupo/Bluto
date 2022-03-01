@@ -1,4 +1,4 @@
-#!/usr/local/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import dns.resolver
@@ -357,6 +357,9 @@ def action_netcraft(domain, myResolver):
     info('NetCraft Search Started')
     netcraft_list = []
     print("\nPassive Gatherings From NetCraft\n")
+
+    # NOTE: I don't like this, but I don't wanna mess around with this masterpiece :)
+    sub_results = None
     try:
         link = "http://searchdns.netcraft.com/?restriction=site+contains&host=*.{}&lookup=wait..&position=limited" .format (domain)
         response = requests.get(link, verify=False)
@@ -364,7 +367,7 @@ def action_netcraft(domain, myResolver):
         pattern = 'rel="nofollow">([a-z\.\-A-Z0-9]+)<FONT COLOR="#ff0000">'
         sub_results = re.findall(pattern, response.content)
     except dns.exception.Timeout:
-        pass
+        info("Timeout in DNS ops...")
     except Exception:
         info('An Unhandled Exception Has Occured, Please Check The Log For Details\n' + INFO_LOG_FILE, exc_info=True)
 

@@ -1,4 +1,4 @@
-#!/usr/local/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 from termcolor import colored
@@ -16,6 +16,7 @@ import dns.query
 import dns.zone
 import traceback
 import os
+
 from .bluto_logging import info, INFO_LOG_FILE
 
 
@@ -35,13 +36,13 @@ def get_size(dir_location):
 
 def action_whois(domain):
     try:
-        whois_things = pythonwhois.get_whois(domain)
+        whois_things = whois.whois(domain)
         try:
-            company = whois_things['contacts']['registrant']['name']
+            company = whois_things['admin_organization']
         except Exception:
             print('\nThere seems to be no Registrar for this domain.')
             company = domain
-        
+
         splitup = domain.lower().split('.')[0]
         patern = re.compile('|'.join(splitup))
         while True:
@@ -79,22 +80,20 @@ def action_whois(domain):
                     info('User Supplied Company ' + company)
                     company = temp_company
                     break
-
-    except pythonwhois.shared.WhoisException:
-        pass
     except socket.error:
         pass
     except KeyError:
         pass
-    except pythonwhois.net.socket.errno.ETIMEDOUT:
-        print(colored('\nWhoisError: You may be behind a proxy or firewall preventing whois lookups. Please supply the registered company name, if left blank the domain name ' + '"' + domain + '"' +' will be used for the Linkedin search. The results may not be as accurate.','red'))
-        temp_company = input(colored('\nRegistered Company Name: ','green'))
-        if temp_company == '':
-            company = domain
-        else:
-            company = temp_company
+#    except pythonwhois.net.socket.errno.ETIMEDOUT:
+#        print(colored('\nWhoisError: You may be behind a proxy or firewall preventing whois lookups. Please supply the registered company name, if left blank the domain name ' + '"' + domain + '"' +' will be used for the Linkedin search. The results may not be as accurate.','red'))
+#        temp_company = input(colored('\nRegistered Company Name: ','green'))
+#        if temp_company == '':
+#            company = domain
+#        else:
+#            company = temp_company
     except Exception:
         info('An Unhandled Exception Has Occured, Please Check The Log For Details' + INFO_LOG_FILE)
+
     if 'company' not in locals():
         print('There is no Whois data for this domain.\n\nPlease supply a company name.')
         while True:
@@ -143,8 +142,7 @@ def action_country_id(countries_file, prox):
 
     while True:
         try:
-            
-            while True:    
+            while True:
                 api_keys = ['5751cce3503b56584e4b1267a7076904', 'dd763372274e9ae8aed34a55a7a4b36a']
                 random.Random(500)
                 key = random.choice(api_keys)
@@ -153,14 +151,14 @@ def action_country_id(countries_file, prox):
                     r = requests.get(r'http://api.ipstack.com/check?access_key={}'.format(key), proxies=proxy, verify=False)
                     key_change = errorcheck(r)
                     originCountry = r.json()['country_name']
-    
+
                 else:
                     r = requests.get(r'http://api.ipstack.com/check?access_key={}'.format(key), verify=False)
                     key_change = errorcheck(r)
-                
+
                 if not key_change:
                     break
-                    
+
             originCountry = r.json()['country_name']
 
         except ValueError as e:

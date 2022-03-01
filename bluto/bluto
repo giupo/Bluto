@@ -31,15 +31,16 @@ import site
 import os
 
 
-
 def get_module_path():
     sites = site.getsitepackages()
+    # if we are developing...
     sites.append(".")
 
     for path in sites:
         if os.path.exists(path + "/bluto/modules/__init__.py"):
             return path
 
+    print("can't find module path, exiting...")
     sys.exit(-1)
 
 path = get_module_path()

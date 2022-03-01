@@ -28,7 +28,8 @@ setup(
         "pythonwhois",
         "lxml",
         "oletools",
-        "pdfminer"
+        "pdfminer",
+        "python-whois"
     ],
 )
 
