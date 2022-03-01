@@ -4,7 +4,6 @@
 from termcolor import colored
 
 import whois
-import traceback
 import requests
 import datetime
 import re
@@ -14,8 +13,8 @@ import socket
 import dns.resolver
 import dns.query
 import dns.zone
-import traceback
 import os
+import time
 
 from .bluto_logging import info, INFO_LOG_FILE
 
@@ -25,10 +24,11 @@ default_s = False
 def get_size(dir_location):
     start_path = dir_location
     total_size = 0
-    for dirpath, dirnames, filenames in os.walk(start_path):
+    for dirpath, _, filenames in os.walk(start_path):
         for f in filenames:
             fp = os.path.join(dirpath, f)
             total_size += os.path.getsize(fp)
+
     total_size = total_size / 1024.0
     total_size = total_size / 1024.0
     return total_size
@@ -109,19 +109,18 @@ def action_whois(domain):
 
     return company
 
-def action_country_id(countries_file, prox):
-    
+def action_country_id(countries_file, has_proxy):
     def errorcheck(r):
         if 'success' in r.json():
             key_change = True
         else:
             key_change = False
-        return key_change  
-        
+        return key_change
+
     info('Identifying Country')
     userCountry = ''
     userServer = ''
-    userIP = ''
+
     userID = False
     o = 0
     tcountries_dic = {}
@@ -143,17 +142,25 @@ def action_country_id(countries_file, prox):
     while True:
         try:
             while True:
-                api_keys = ['5751cce3503b56584e4b1267a7076904', 'dd763372274e9ae8aed34a55a7a4b36a']
+                api_keys = [
+                    '5751cce3503b56584e4b1267a7076904',
+                    'dd763372274e9ae8aed34a55a7a4b36a'
+                ]
                 random.Random(500)
                 key = random.choice(api_keys)
-                if prox == True:
+                if has_proxy:
                     proxy = {'http' : 'http://127.0.0.1:8080'}
-                    r = requests.get(r'http://api.ipstack.com/check?access_key={}'.format(key), proxies=proxy, verify=False)
+
+                    r = requests.get(
+                        f"http://api.ipstack.com/check?access_key={key}",
+                        proxies=proxy, verify=False)
+
                     key_change = errorcheck(r)
                     originCountry = r.json()['country_name']
-
                 else:
-                    r = requests.get(r'http://api.ipstack.com/check?access_key={}'.format(key), verify=False)
+                    r = requests.get(
+                        f"http://api.ipstack.com/check?access_key={key}",
+                        verify=False)
                     key_change = errorcheck(r)
 
                 if not key_change:
@@ -165,7 +172,7 @@ def action_country_id(countries_file, prox):
             if o == 0:
                 print(colored('\nUnable to connect to the CountryID, we will retry.', 'red'))
             if o > 0:
-                print('\nThis is {} of 3 attempts' .format(o))
+                print(f'\nThis is {o} of 3 attempts')
             time.sleep(2)
             o += 1
             if o == 4:

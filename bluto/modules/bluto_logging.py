@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 
 import logging
-import sys
-import site
 import os
 
 LOG_DIR = os.path.expanduser('~/bluto/log/')

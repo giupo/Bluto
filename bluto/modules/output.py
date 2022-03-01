@@ -2,14 +2,17 @@
 # -*- coding: utf-8 -*-
 
 from termcolor import colored
-import traceback
+
 import collections
 import datetime
 import webbrowser
 import shutil
 import os
+
+from termcolor import colored
+
 from .search import action_pwned
-from .bluto_logging import info, INFO_LOG_FILE, LOG_DIR
+from .bluto_logging import info, LOG_DIR
 
 
 def action_output_vuln_zone(google_results, bing_results, linkedin_results, time_spent_email, time_spent_total, clean_dump, sub_intrest, domain, report_location, company, data_mine):
@@ -96,7 +99,7 @@ def action_output_vuln_zone(google_results, bing_results, linkedin_results, time
         user_names = data_mine[0]
         software_list = data_mine[1]
         download_count = data_mine[2]
-        download_list = data_mine[3]
+        # download_list = data_mine[3]
         username_count = len(user_names)
         software_count = len(software_list)
 
@@ -276,7 +279,7 @@ def action_output_vuln_zone_hunter(google_results, bing_results, linkedin_result
         user_names = data_mine[0]
         software_list = data_mine[1]
         download_count = data_mine[2]
-        download_list = data_mine[3]
+        # download_list = data_mine[3]
         username_count = len(user_names)
         software_count = len(software_list)
 

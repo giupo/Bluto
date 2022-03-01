@@ -1,24 +1,17 @@
 import pdfminer
 import requests
-import urllib.request, urllib.error, urllib.parse
 import olefile
 import os
-import traceback
-import time
 import re
-import random
 import math
-import sys
 import queue
-import time
 import threading
 import cgi
-from termcolor import colored
+
 from pdfminer.pdfparser import PDFParser
 from pdfminer.pdfdocument import PDFDocument
-from bs4 import BeautifulSoup
+
 from .bluto_logging import info, INFO_LOG_FILE
-from .get_file import get_user_agents
 from .search import doc_bing, doc_exalead
 from .general import get_size
 
@@ -224,7 +217,7 @@ def doc_start(domain, USERAGENT_F, prox, q):
 	download_list = action_download(doc_list, docs)
 	download_count = len(download_list)
 
-	for root, dirs, files in os.walk(docs):
+	for root, _, files in os.walk(docs):
 		for filename in files:
 			if str(filename).endswith(ms_list_ext):
 				ms_file_list.append(os.path.join(root, filename))

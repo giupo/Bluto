@@ -50,7 +50,6 @@ sys.path.append(path + '/bluto/')
 import time
 import threading
 import queue
-import argparse
 import dns.resolver
 import dns.query
 import dns.zone
@@ -92,7 +91,7 @@ from bluto.modules.output import (
 
 from bluto.modules.data_mine import doc_start
 from bluto.modules.bluto_logging import info
-from bluto.modules.update import update, updateCheck
+from bluto.modules.update import updateCheck
 
 
 FILENAME_1 = path + "/bluto/doc/subdomains-top1mil-20000.txt"

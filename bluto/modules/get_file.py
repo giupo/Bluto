@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import traceback
+
 import sys
 import random
-from termcolor import colored
+
 from .bluto_logging import info, INFO_LOG_FILE
 
 def get_user_agents(useragent_f):
@@ -52,7 +52,7 @@ def get_sub_interest(filename, domain):
 def get_line_count(filename):
     info('Gathering SubDomains Count')
     lines = 0
-    for line in open(filename):
+    for _ in open(filename):
         lines += 1
 
     info('Completed Gathering SubDomains Count')
