@@ -76,7 +76,7 @@ from bluto.modules.bluto_logging import info
 from bluto.modules.update import updateCheck
 from bluto.modules.utils import get_module_path
 
-version = '2.4.21'
+version = '2.4.22'
 
 title = """
  BBBBBBBBBBBBBBBBB  lllllll                       tttt

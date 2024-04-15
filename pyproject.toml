@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bluto"
-version = "2.4.21"
+version = "2.4.22"
 authors = ["Darryl Lane <DarrylLane101@gmail.com>"]
 description = "Some description here"
 license = "GPL"
