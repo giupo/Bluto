@@ -1,11 +1,8 @@
 [tool.poetry]
 name = "bluto"
 version = "2.4.21"
-description = """DNS Recon | Brute Forcer | DNS Zone Transfer | DNS Wild Card Checks
-    DNS Wild Card Brute Forcer | Email Enumeration | Staff Enumeration
-    Compromised Account Checking"""
 authors = ["Darryl Lane <DarrylLane101@gmail.com>"]
-
+description = "Some description here"
 license = "GPL"
 repository = "https://github.com/darryllane/Bluto"
 
@@ -13,13 +10,13 @@ repository = "https://github.com/darryllane/Bluto"
 "Issue Tracker" = "https://github.com/darryllane/Bluto/issues"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.11"
 beautifulsoup4 = "^4.10.0"
 docopt = "^0.6.2"
 dnspython = "^2.2.0"
 termcolor = "^1.1.0"
 requests = {extras = ["security"], version = "^2.27.1"}
-lxml = "^4.8.0"
+lxml = "^4.9.0"
 oletools = "^0.60"
 pdfminer = "^20191125"
 python-whois = "^0.7.3"
@@ -27,6 +24,9 @@ python-whois = "^0.7.3"
 [tool.poetry.dev-dependencies]
 pyright = "^1.1.225"
 importmagic = "^0.1.7"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.1.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

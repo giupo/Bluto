@@ -46,7 +46,7 @@ def handle_local_data(docs, log_dir, report_location):
 
 def get_module_path():
     """
-    Returns the module path
+    Returns the module path.
     """
 
     # NOTE: maybe we should use pkg_resources

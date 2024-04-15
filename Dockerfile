@@ -1,4 +1,4 @@
-FROM python:3.9.10-slim-bullseye as builder
+FROM python:3.11-slim-bullseye as builder
 
 RUN apt-get update -y && \
     apt-get upgrade -y && \
